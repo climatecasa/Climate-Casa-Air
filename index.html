@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Casa Air</title>
+    <!-- Tailwind CSS for sleek modern UI styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Serif display face to match the Climate Casa reference site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;1,500&display=swap" rel="stylesheet">
+    <style>
+        /* Palette sampled directly from climatecasa.github.io/Climate-Casa */
+        :root {
+            --beige-50:  #FDFBF7;  /* page background — ivory */
+            --beige-100: #F8F2E6;  /* subtle alt surface */
+            --beige-150: #F4ECD3;  /* tan accent — matches active pill */
+            --beige-200: #E4D9C2;  /* soft border */
+            --beige-300: #C2B5A4;  /* taupe border — exact match */
+            --beige-400: #BCAFA2;  /* muted taupe text — exact match */
+            --beige-500: #9C8C78;  /* deeper muted accent */
+            --beige-600: #4A3B27;  /* warm dark brown — buttons */
+            --beige-700: #2F271F;  /* darker brown — hover / icons */
+            --beige-800: #19110B;  /* ink — exact heading/title color */
+            --beige-900: #120C07;  /* darkest — footer */
+            --ink: #19110B;
+            --cream: #FFFFFF;
+        }
+        body { background: var(--beige-50); color: var(--ink); font-family: 'Lora', ui-serif, Georgia, serif; }
+        h1, h2, h3, .font-display { font-family: 'Playfair Display', Georgia, serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--beige-100); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--beige-300); border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--beige-400); }
+
+        @keyframes floatPlane {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(-2deg); }
+        }
+        .plane-float { animation: floatPlane 4.5s ease-in-out infinite; }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-enter { animation: fadeSlideUp 0.4s ease-out; }
+
+        .avatar-fallback {
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--beige-300), var(--beige-500));
+            color: var(--cream); font-weight: 700;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased" style="background: var(--beige-50);">
+
+    <!-- Header Banner -->
+    <header class="py-6 px-8 shadow-sm border-b" style="background: linear-gradient(90deg, var(--beige-50), var(--beige-150)); border-color: var(--beige-200);">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight" style="color: var(--beige-900);">Climate Casa Air</h1>
+                <p class="text-sm mt-1" style="color: var(--beige-600);">Accelerating the transition to zero-emission aviation</p>
+            </div>
+            <!-- Realistic aeroplane graphic replacing "Live Briefing 2026" text -->
+            <div class="rounded-full p-3 plane-float border" style="background: var(--beige-50); border-color: var(--beige-300);" title="Live now">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="var(--beige-700)" class="w-8 h-8">
+                    <path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area: 3-Column Layout -->
+    <main class="flex-1 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 p-6 lg:p-8">
+
+        <!-- COLUMN 1: Join the Conversation (Dialogue Form Box) -->
+        <section id="shareSection" class="rounded-2xl shadow-sm border p-6 flex flex-col justify-between transition-all duration-300" style="background: var(--cream); border-color: var(--beige-200);">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 rounded-lg" style="background: var(--beige-100); color: var(--beige-700);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--beige-900);">Join the Conversation</h2>
+                </div>
+
+                <p class="text-sm mb-6" style="color: var(--ink);">
+                    Contribute to the live discussion by choosing a prompt below or sharing your own perspective on sustainable aviation — from everyday travel habits to the future of flight.
+                </p>
+
+                <form id="thoughtForm" class="space-y-4">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="fullName" class="block text-xs font-semibold uppercase tracking-wider mb-1.5" style="color: var(--beige-700);">Full Name *</label>
+                        <input type="text" id="fullName" required
+                            class="w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-colors"
+                            style="border-color: var(--beige-200); background: var(--beige-50);"
+                            placeholder="e.g. Himanshi Shrimali">
+                    </div>
+
+                    <!-- Profession -->
+                    <div>
+                        <label for="profession" class="block text-xs font-semibold uppercase tracking-wider mb-1.5" style="color: var(--beige-700);">Profession *</label>
+                        <input type="text" id="profession" required
+                            class="w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-colors"
+                            style="border-color: var(--beige-200); background: var(--beige-50);"
+                            placeholder="e.g. Entrepreneur/Pilot">
+                    </div>
+
+                    <!-- Photo Upload (optional) -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider mb-1.5" style="color: var(--beige-700);">Add a Photo (optional)</label>
+                        <div class="flex items-center gap-3">
+                            <div id="photoPreviewWrap" class="w-12 h-12 rounded-full overflow-hidden shrink-0 border" style="border-color: var(--beige-200); background: var(--beige-100);">
+                                <div id="photoPreviewEmpty" class="w-full h-full flex items-center justify-center" style="color: var(--beige-400);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-4.16 0 2.192 2.192 0 00-1.736 1.04l-.821 1.316z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                                    </svg>
+                                </div>
+                                <img id="photoPreviewImg" class="w-full h-full object-cover hidden" alt="Preview">
+                            </div>
+                            <label class="flex-1 cursor-pointer text-center text-xs font-medium py-2.5 px-3 rounded-xl border transition-colors"
+                                style="border-color: var(--beige-200); background: var(--beige-50); color: var(--beige-700);">
+                                <span id="photoLabelText">Upload a photo of you flying (or anything aviation-related)</span>
+                                <input type="file" id="photoInput" accept="image/*" class="hidden">
+                            </label>
+                            <button type="button" id="removePhotoBtn" class="hidden text-xs px-2 py-2.5" style="color: var(--beige-600);">Remove</button>
+                        </div>
+                    </div>
+
+                    <!-- Creative Prompts Selection -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider mb-1.5" style="color: var(--beige-700);">Inspiration Prompts (Click to choose)</label>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button type="button" onclick="applyPrompt(this)" class="text-left text-xs p-2.5 rounded-lg border transition-colors leading-snug prompt-btn"
+                                style="background: var(--beige-50); border-color: var(--beige-200); color: var(--ink);">
+                                "One change that could make flying kinder to the planet is…"
+                            </button>
+                            <button type="button" onclick="applyPrompt(this)" class="text-left text-xs p-2.5 rounded-lg border transition-colors leading-snug prompt-btn"
+                                style="background: var(--beige-50); border-color: var(--beige-200); color: var(--ink);">
+                                "When I think about the future of flight, I imagine…"
+                            </button>
+                            <button type="button" onclick="applyPrompt(this)" class="text-left text-xs p-2.5 rounded-lg border transition-colors leading-snug prompt-btn"
+                                style="background: var(--beige-50); border-color: var(--beige-200); color: var(--ink);">
+                                "When I think about sustainable aviation, I wonder…"
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Thought/Message Box -->
+                    <div>
+                        <label for="thoughtMessage" class="block text-xs font-semibold uppercase tracking-wider mb-1.5" style="color: var(--beige-700);">Your Thoughts & Actions *</label>
+                        <textarea id="thoughtMessage" required rows="4"
+                            class="w-full px-4 py-2.5 rounded-xl border text-sm resize-none focus:outline-none focus:ring-2 transition-colors"
+                            style="border-color: var(--beige-200); background: var(--beige-50);"
+                            placeholder="Type your strategic ideas or green flight practices here..."></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full text-white font-medium text-sm py-3 px-4 rounded-xl transition-colors shadow-sm flex justify-center items-center gap-2 cursor-pointer"
+                        style="background: var(--beige-600);">
+                        Broadcast to Forum
+                        <kbd class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded border" style="background: var(--beige-700); border-color: var(--beige-500);">Enter</kbd>
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-6 pt-4 border-t text-[11px] text-center" style="border-color: var(--beige-150); color: var(--beige-400);">
+                * All input values are processed securely in real-time.
+            </div>
+        </section>
+
+        <!-- COLUMN 2: Live Conversation Feed -->
+        <section id="forumSection" class="rounded-2xl shadow-sm border p-6 flex flex-col h-[780px] lg:h-auto transition-all duration-300" style="background: var(--cream); border-color: var(--beige-200);">
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-lg" style="background: var(--beige-100); color: var(--beige-700);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379L12 21l3.62-2.63c1.153-.086 2.294-.213 3.423-.379 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--beige-900);">Live Forum</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div id="liveIndicator" class="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full animate-pulse" style="color: var(--beige-700); background: var(--beige-100);">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--beige-600);"></span> Live Feed
+                    </div>
+                    <button id="expandForumBtn" onclick="toggleForumExpand()" type="button"
+                        class="p-1.5 rounded-full border transition-colors" title="Expand for a spacious view"
+                        style="border-color: var(--beige-300); color: var(--beige-700); background: var(--beige-50);">
+                        <svg id="expandIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 20.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter + Count Row -->
+            <div class="flex items-center justify-between mb-3 gap-2">
+                <span id="forumCount" class="text-[11px]" style="color: var(--beige-500);">Loading voices…</span>
+                <select id="sortSelect" class="text-xs rounded-lg border px-2 py-1.5 focus:outline-none" style="border-color: var(--beige-200); background: var(--beige-50); color: var(--ink);">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                </select>
+            </div>
+
+            <!-- Dynamic Conversation Content Box -->
+            <div id="conversationFeed" class="flex-1 overflow-y-auto pr-1 space-y-4 custom-scrollbar">
+                <div id="emptyState" class="text-center py-12 text-sm italic" style="color: var(--beige-400);">
+                    No active user broadcasts yet. Submit the form on the left to pin your thought here!
+                </div>
+            </div>
+
+            <!-- View All -->
+            <div class="pt-3 mt-3 border-t" style="border-color: var(--beige-150);">
+                <button id="viewAllBtn" onclick="openModal()" class="hidden w-full text-sm font-medium py-2.5 rounded-xl border transition-colors"
+                    style="border-color: var(--beige-300); color: var(--beige-700); background: var(--beige-50);">
+                    View All Voices
+                </button>
+            </div>
+        </section>
+
+        <!-- COLUMN 3: Articles -->
+        <section id="articlesSection" class="rounded-2xl shadow-sm border p-6 flex flex-col justify-between h-[780px] lg:h-auto transition-all duration-300" style="background: var(--cream); border-color: var(--beige-200);">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 rounded-lg" style="background: var(--beige-100); color: var(--beige-700);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.75c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V6.125c0-.621.504-1.125 1.125-1.125H15M9 21h6" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold" style="color: var(--beige-900);">Articles</h2>
+                </div>
+
+                <!-- Articles Group -->
+                <div class="space-y-4 overflow-y-auto max-h-[520px] pr-1 custom-scrollbar">
+                    <!-- Article 1 -->
+                    <article class="p-4 rounded-xl transition-colors border" style="background: var(--beige-50); border-color: var(--beige-150);">
+                        <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded" style="color: var(--beige-700); background: var(--beige-150);">Everyday Explainer</span>
+                        <h3 class="font-bold text-sm mt-2 mb-1" style="color: var(--beige-900);">Could Your Next Flight Run on Cooking Oil?</h3>
+                        <p class="text-xs leading-relaxed line-clamp-3" style="color: var(--ink);">
+                            Used cooking oil, food scraps, and even household waste can now be turned into jet fuel. It sounds unlikely, but airlines are already blending it into regular flights — here's how it actually works.
+                        </p>
+                        <div class="mt-3 flex items-center justify-between text-[11px]" style="color: var(--beige-400);">
+                            <span>Source: Climate Air Collection</span>
+                            <span>June 2026</span>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="p-4 rounded-xl transition-colors border" style="background: var(--beige-50); border-color: var(--beige-150);">
+                        <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded" style="color: var(--beige-700); background: var(--beige-150);">Quick Read</span>
+                        <h3 class="font-bold text-sm mt-2 mb-1" style="color: var(--beige-900);">Why Some Flight Paths Are Being Redrawn</h3>
+                        <p class="text-xs leading-relaxed line-clamp-3" style="color: var(--ink);">
+                            Those wispy white trails behind planes can trap heat. Airlines are testing small route tweaks — flying a little higher or lower — to dodge the humid air that turns contrails into a climate problem.
+                        </p>
+                        <div class="mt-3 flex items-center justify-between text-[11px]" style="color: var(--beige-400);">
+                            <span>Source: Climate Air Collection</span>
+                            <span>June 2026</span>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="p-4 rounded-xl transition-colors border" style="background: var(--beige-50); border-color: var(--beige-150);">
+                        <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded" style="color: var(--beige-700); background: var(--beige-150);">Bright Idea</span>
+                        <h3 class="font-bold text-sm mt-2 mb-1" style="color: var(--beige-900);">The Airport That Runs on Sunshine</h3>
+                        <p class="text-xs leading-relaxed line-clamp-3" style="color: var(--ink);">
+                            A growing number of airports are covering rooftops and runways' edges with solar panels, turning terminals into their own power plants and cutting ties with the regional grid.
+                        </p>
+                        <div class="mt-3 flex items-center justify-between text-[11px]" style="color: var(--beige-400);">
+                            <span>Source: Climate Air Collection</span>
+                            <span>July 2026</span>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="p-4 rounded-xl transition-colors border" style="background: var(--beige-50); border-color: var(--beige-150);">
+                        <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded" style="color: var(--beige-700); background: var(--beige-150);">On the Horizon</span>
+                        <h3 class="font-bold text-sm mt-2 mb-1" style="color: var(--beige-900);">Electric Planes Are Closer Than You Think</h3>
+                        <p class="text-xs leading-relaxed line-clamp-3" style="color: var(--ink);">
+                            Short regional hops — think island-hopping or quick city pairs — are the first places battery-powered aircraft are expected to take off commercially, possibly within the next few years.
+                        </p>
+                        <div class="mt-3 flex items-center justify-between text-[11px]" style="color: var(--beige-400);">
+                            <span>Source: Climate Air Collection</span>
+                            <span>March 2026</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Explore More Action Footer Buttons -->
+            <div class="pt-4 border-t mt-4 space-y-2" style="border-color: var(--beige-150);">
+                <a href="https://drive.google.com/drive/folders/1v4JjcWp349pl8Zrd1Ga3UGXVa9OT5Lx-?usp=drive_link" target="_blank" rel="noopener noreferrer"
+                    class="w-full text-white font-medium text-sm py-2.5 px-4 rounded-xl transition-colors text-center flex items-center justify-center gap-2 cursor-pointer"
+                    style="background: var(--beige-800);">
+                    Explore More Insights
+                </a>
+                <a href="https://drive.google.com/drive/folders/1v4JjcWp349pl8Zrd1Ga3UGXVa9OT5Lx-?usp=drive_link" target="_blank" rel="noopener noreferrer"
+                    class="w-full font-medium text-sm py-2.5 px-4 rounded-xl border transition-colors text-center flex items-center justify-center gap-2 cursor-pointer"
+                    style="border-color: var(--beige-300); color: var(--beige-700); background: var(--beige-50);">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.3 78" class="w-4 h-4" fill="currentColor">
+                        <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+                        <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+                        <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+                        <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+                        <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+                        <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+                    </svg>
+                    Open Google Drive Folder
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- View All Modal -->
+    <div id="modalOverlay" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+        <div class="rounded-2xl shadow-xl w-full max-w-2xl max-h-[85vh] flex flex-col" style="background: var(--cream);">
+            <div class="flex items-center justify-between p-5 border-b" style="border-color: var(--beige-150);">
+                <div>
+                    <h3 class="text-lg font-bold" style="color: var(--beige-900);">All Voices</h3>
+                    <p id="modalCount" class="text-xs" style="color: var(--beige-500);"></p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <select id="modalSortSelect" class="text-xs rounded-lg border px-2 py-1.5 focus:outline-none" style="border-color: var(--beige-200); background: var(--beige-50); color: var(--ink);">
+                        <option value="newest">Newest first</option>
+                        <option value="oldest">Oldest first</option>
+                    </select>
+                    <button onclick="closeModal()" class="text-sm px-3 py-1.5 rounded-lg border" style="border-color: var(--beige-200); color: var(--beige-700);">Close</button>
+                </div>
+            </div>
+            <div id="modalFeed" class="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar"></div>
+        </div>
+    </div>
+
+    <!-- Footer Area -->
+    <footer class="text-xs py-4 px-6 border-t text-center" style="background: var(--beige-900); color: var(--beige-300); border-color: var(--beige-800);">
+        &copy; 2023 Climate Casa
+    </footer>
+
+    <!-- Interactive JavaScript Engine -->
+    <script>
+        // DOM Elements
+        const form = document.getElementById('thoughtForm');
+        const feedContainer = document.getElementById('conversationFeed');
+        const emptyState = document.getElementById('emptyState');
+        const modalFeed = document.getElementById('modalFeed');
+        const forumCount = document.getElementById('forumCount');
+        const modalCount = document.getElementById('modalCount');
+        const viewAllBtn = document.getElementById('viewAllBtn');
+        const sortSelect = document.getElementById('sortSelect');
+        const modalSortSelect = document.getElementById('modalSortSelect');
+        const photoInput = document.getElementById('photoInput');
+        const photoPreviewImg = document.getElementById('photoPreviewImg');
+        const photoPreviewEmpty = document.getElementById('photoPreviewEmpty');
+        const photoLabelText = document.getElementById('photoLabelText');
+        const removePhotoBtn = document.getElementById('removePhotoBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        const STORAGE_KEY = 'forum-posts';
+        const COMPACT_LIMIT = 6;
+        let livePosts = [];       // persisted, shared across all users
+        let selectedPhotoDataUrl = null;
+        let storageReady = false;
+        let isForumExpanded = false;
+
+        const forumSection = document.getElementById('forumSection');
+        const shareSection = document.getElementById('shareSection');
+        const articlesSection = document.getElementById('articlesSection');
+        const expandForumBtn = document.getElementById('expandForumBtn');
+        const expandIcon = document.getElementById('expandIcon');
+
+        const EXPAND_ICON = '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 20.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />';
+        const COLLAPSE_ICON = '<path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M15 9V4.5M15 9h4.5M15 9l5.25-5.25M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 15v4.5M15 15h4.5M15 15l5.25 5.25" />';
+
+        function toggleForumExpand() {
+            isForumExpanded = !isForumExpanded;
+            if (isForumExpanded) {
+                forumSection.classList.add('lg:col-span-3');
+                forumSection.classList.remove('h-[780px]');
+                forumSection.classList.add('h-[85vh]');
+                shareSection.classList.add('hidden');
+                articlesSection.classList.add('hidden');
+                expandIcon.innerHTML = COLLAPSE_ICON;
+                expandForumBtn.title = 'Collapse back to overview';
+            } else {
+                forumSection.classList.remove('lg:col-span-3');
+                forumSection.classList.remove('h-[85vh]');
+                forumSection.classList.add('h-[780px]');
+                shareSection.classList.remove('hidden');
+                articlesSection.classList.remove('hidden');
+                expandIcon.innerHTML = EXPAND_ICON;
+                expandForumBtn.title = 'Expand for a spacious view';
+            }
+            renderFeed();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+
+        async function init() {
+            await loadPosts();
+            renderFeed();
+            sortSelect.addEventListener('change', () => { modalSortSelect.value = sortSelect.value; renderFeed(); });
+            modalSortSelect.addEventListener('change', () => { sortSelect.value = modalSortSelect.value; renderFeed(); });
+        }
+
+        async function loadPosts() {
+            try {
+                const result = await window.storage.get(STORAGE_KEY, true);
+                livePosts = result && result.value ? JSON.parse(result.value) : [];
+            } catch (err) {
+                // Key not found yet, or storage unavailable — start fresh.
+                livePosts = [];
+            }
+            storageReady = true;
+        }
+
+        async function savePosts() {
+            try {
+                await window.storage.set(STORAGE_KEY, JSON.stringify(livePosts), true);
+            } catch (err) {
+                console.error('Could not save your post to the shared forum:', err);
+            }
+        }
+
+        function getSortedPosts() {
+            const order = sortSelect.value || 'newest';
+            const source = livePosts.length ? livePosts : standardSeedCards;
+            const sorted = [...source].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            return order === 'newest' ? sorted.reverse() : sorted;
+        }
+
+        function renderFeed() {
+            const sorted = getSortedPosts();
+            const usingSeed = livePosts.length === 0;
+
+            // Count label
+            forumCount.textContent = usingSeed
+                ? 'Climate Casa Air'
+                : `${livePosts.length} voice${livePosts.length === 1 ? '' : 's'} shared`;
+
+            // Compact feed (spacious full list when the panel is expanded)
+            feedContainer.innerHTML = '';
+            if (sorted.length === 0) {
+                feedContainer.appendChild(emptyState);
+                emptyState.style.display = 'block';
+            } else {
+                const limit = isForumExpanded ? sorted.length : COMPACT_LIMIT;
+                const visible = sorted.slice(0, limit);
+                visible.forEach(post => feedContainer.appendChild(buildCard(post)));
+            }
+
+            // View All button — only relevant in the compact view
+            if (!isForumExpanded && !usingSeed && livePosts.length > COMPACT_LIMIT) {
+                viewAllBtn.classList.remove('hidden');
+            } else {
+                viewAllBtn.classList.add('hidden');
+            }
+
+            // Modal (if open, keep it live-updated)
+            if (!document.getElementById('modalOverlay').classList.contains('hidden')) {
+                renderModal();
+            }
+        }
+
+        function renderModal() {
+            const sorted = getSortedPosts();
+            modalCount.textContent = `${sorted.length} voice${sorted.length === 1 ? '' : 's'}`;
+            modalFeed.innerHTML = '';
+            sorted.forEach(post => modalFeed.appendChild(buildCard(post)));
+        }
+
+        function openModal() {
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            renderModal();
+        }
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        // Function to inject quick text prompt templates from user clicks
+        function applyPrompt(buttonElement) {
+            const extractedText = buttonElement.innerText.replace(/"/g, "");
+            const textarea = document.getElementById('thoughtMessage');
+            textarea.value = extractedText;
+            textarea.focus();
+        }
+
+        // Photo selection + client-side resize so shared storage stays light
+        photoInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert('Please choose an image file.');
+                return;
+            }
+            try {
+                selectedPhotoDataUrl = await resizeImageToDataUrl(file, 200, 200, 0.7);
+                photoPreviewImg.src = selectedPhotoDataUrl;
+                photoPreviewImg.classList.remove('hidden');
+                photoPreviewEmpty.classList.add('hidden');
+                photoLabelText.textContent = 'Photo selected — looking good ✓';
+                removePhotoBtn.classList.remove('hidden');
+            } catch (err) {
+                alert('Could not process that image, please try another.');
+            }
+        });
+
+        removePhotoBtn.addEventListener('click', () => {
+            selectedPhotoDataUrl = null;
+            photoInput.value = '';
+            photoPreviewImg.classList.add('hidden');
+            photoPreviewEmpty.classList.remove('hidden');
+            photoLabelText.textContent = 'Upload a photo of you flying (or anything aviation-related)';
+            removePhotoBtn.classList.add('hidden');
+        });
+
+        function resizeImageToDataUrl(file, maxW, maxH, quality) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onerror = () => reject(new Error('read failed'));
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onerror = () => reject(new Error('image load failed'));
+                    img.onload = () => {
+                        let { width, height } = img;
+                        const scale = Math.min(maxW / width, maxH / height, 1);
+                        width = Math.round(width * scale);
+                        height = Math.round(height * scale);
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Intercept form dispatch
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const nameVal = document.getElementById('fullName').value.trim();
+            const profVal = document.getElementById('profession').value.trim();
+            const messageVal = document.getElementById('thoughtMessage').value.trim();
+
+            if (!nameVal || !profVal || !messageVal) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Broadcasting…';
+
+            const newPost = {
+                id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+                name: nameVal,
+                profession: profVal,
+                thought: messageVal,
+                photo: selectedPhotoDataUrl,
+                timestamp: new Date().toISOString()
+            };
+
+            livePosts.push(newPost);
+            await savePosts();
+            renderFeed();
+
+            form.reset();
+            selectedPhotoDataUrl = null;
+            photoPreviewImg.classList.add('hidden');
+            photoPreviewEmpty.classList.remove('hidden');
+            photoLabelText.textContent = 'Upload a photo of you flying (or anything aviation-related)';
+            removePhotoBtn.classList.add('hidden');
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Broadcast to Forum <kbd class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded border" style="background: var(--beige-700); border-color: var(--beige-500);">Enter</kbd>';
+        });
+
+        function formatTimestamp(iso) {
+            return new Date(iso).toLocaleString('en-US', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', hour12: true
+            });
+        }
+
+        function buildCard(post) {
+            const card = document.createElement('div');
+            card.className = "card-enter p-5 rounded-xl border shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[140px]";
+            card.style.background = 'linear-gradient(160deg, var(--beige-50), var(--cream))';
+            card.style.borderColor = 'var(--beige-200)';
+
+            const initials = escapeHTML(post.name || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+
+            const avatarHTML = post.photo
+                ? `<img src="${post.photo}" alt="${escapeHTML(post.name)}" class="w-10 h-10 rounded-full object-cover border" style="border-color: var(--beige-200);">`
+                : `<div class="w-10 h-10 rounded-full avatar-fallback text-xs">${initials}</div>`;
+
+            card.innerHTML = `
+                <div>
+                    <div class="flex items-start justify-between gap-4 mb-2">
+                        <div class="flex items-center gap-3">
+                            ${avatarHTML}
+                            <div>
+                                <h4 class="font-bold text-sm tracking-tight" style="color: var(--beige-900);">${escapeHTML(post.name)}</h4>
+                                <p class="text-[11px] font-medium tracking-wide" style="color: var(--beige-600);">${escapeHTML(post.profession)}</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono shrink-0 px-2 py-0.5 rounded" style="color: var(--beige-500); background: var(--beige-100);">${formatTimestamp(post.timestamp)}</span>
+                    </div>
+                    <p class="text-xs leading-relaxed italic mt-1 p-2.5 rounded-lg border" style="color: var(--ink); background: rgba(255,255,255,0.6); border-color: var(--beige-150);">
+                        "${escapeHTML(post.thought)}"
+                    </p>
+                </div>
+            `;
+            return card;
+        }
+
+        function escapeHTML(str) {
+            return String(str || '').replace(/[&<>'"]/g,
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+    </script>
+</body>
+</html>
