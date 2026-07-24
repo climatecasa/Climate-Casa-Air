@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Climate Casa Air</title>
-    <!-- Tailwind CSS for sleek modern UI styling this -->
+    <title>Climate Air</title>
+    <!-- Tailwind CSS for sleek modern UI styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Serif display face to match the Climate Casa reference site -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,12 @@
             --beige-900: #120C07;  /* darkest — footer */
             --ink: #19110B;
             --cream: #FFFFFF;
+
+            /* Sky accents used only for the Live Forum panel */
+            --sky-50: #F3F8FB;
+            --sky-100: #E7F1F7;
+            --sky-200: #D9EAF3;
+            --sky-mist: #FFFFFF;
         }
         body { background: var(--beige-50); color: var(--ink); font-family: 'Lora', ui-serif, Georgia, serif; }
         h1, h2, h3, .font-display { font-family: 'Playfair Display', Georgia, serif; }
@@ -44,12 +50,93 @@
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .card-enter { animation: fadeSlideUp 0.4s ease-out; }
+        .card-enter { animation: fadeSlideUp 0.45s ease-out; }
 
         .avatar-fallback {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, var(--beige-300), var(--beige-500));
             color: var(--cream); font-weight: 700;
+        }
+
+        /* --- Live Forum: elegant, spacious, "open sky" treatment --- */
+        #forumSection {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(165deg, var(--sky-50) 0%, var(--sky-100) 35%, var(--beige-50) 100%);
+            border-color: var(--sky-200) !important;
+        }
+        #forumSection::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="480" height="260" viewBox="0 0 480 260"><g fill="white" opacity="0.55"><ellipse cx="70" cy="46" rx="38" ry="17"/><ellipse cx="104" cy="34" rx="28" ry="14"/><ellipse cx="40" cy="34" rx="22" ry="11"/><ellipse cx="360" cy="150" rx="46" ry="19"/><ellipse cx="398" cy="138" rx="30" ry="15"/><ellipse cx="326" cy="140" rx="24" ry="12"/></g></svg>');
+            background-repeat: repeat-y;
+            background-size: 480px 260px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+        }
+        #forumSection > * { position: relative; z-index: 1; }
+
+        #forumSection h2, #forumSection #forumCount, #forumSection #liveIndicator {
+            color: var(--beige-900);
+        }
+
+        .forum-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.82));
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid var(--sky-200);
+            border-radius: 20px;
+            padding: 26px 26px 24px;
+            box-shadow: 0 10px 28px rgba(25, 17, 11, 0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .forum-card:hover {
+            box-shadow: 0 16px 34px rgba(25, 17, 11, 0.08);
+            transform: translateY(-1px);
+        }
+        .forum-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 14px;
+            margin-bottom: 14px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border-top: 1px solid var(--beige-150);
+            border-bottom: 1px solid var(--beige-150);
+        }
+        .forum-card-meta-label {
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--beige-500);
+        }
+        .forum-card-date {
+            font-size: 11px;
+            font-family: ui-monospace, monospace;
+            color: var(--beige-600);
+            background: var(--sky-100);
+            padding: 4px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Post-submit publish panel */
+        #publishPanel {
+            background: linear-gradient(180deg, var(--sky-50), var(--cream));
+            border: 1px solid var(--sky-200);
+        }
+        #publishSnippet {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 11px;
+            line-height: 1.6;
+            white-space: pre;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -59,8 +146,8 @@
     <header class="py-6 px-8 shadow-sm border-b" style="background: linear-gradient(90deg, var(--beige-50), var(--beige-150)); border-color: var(--beige-200);">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight" style="color: var(--beige-900);">Climate Casa Air</h1>
-                <p class="text-sm mt-1" style="color: var(--beige-600);">Accelerating the transition to zero-emission aviation</p>
+                <h1 class="text-3xl font-extrabold tracking-tight" style="color: var(--beige-900);">Climate Air</h1>
+                <p class="text-sm mt-1" style="color: var(--beige-600);">A Climate Casa Initiative</p>
             </div>
             <!-- Realistic aeroplane graphic replacing "Live Briefing 2026" text -->
             <div class="rounded-full p-3 plane-float border" style="background: var(--beige-50); border-color: var(--beige-300);" title="Live now">
@@ -166,31 +253,44 @@
                         <kbd class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded border" style="background: var(--beige-700); border-color: var(--beige-500);">Enter</kbd>
                     </button>
                 </form>
+
+                <!-- Publish panel: shown after a submission so the owner can permanently add it via GitHub -->
+                <div id="publishPanel" class="hidden mt-5 rounded-xl p-4 text-xs">
+                    <p class="font-semibold mb-1" style="color: var(--beige-900);">Your voice is previewed below ✓</p>
+                    <p class="mb-3 leading-relaxed" style="color: var(--beige-700);">
+                        This page is static, so a new post is only visible in your own browser right now. To publish it permanently for every visitor, copy the snippet below and add it to the <code>livePosts</code> list in this page's HTML on GitHub. Once added, entries stay forever — the only way to remove a voice is to delete its entry from the code the same way.
+                    </p>
+                    <pre id="publishSnippet" class="rounded-lg p-3 mb-3" style="background: var(--beige-900); color: var(--sky-50);"></pre>
+                    <div class="flex gap-2">
+                        <button type="button" id="copySnippetBtn" class="text-xs font-medium px-3 py-2 rounded-lg text-white" style="background: var(--beige-600);">Copy Snippet</button>
+                        <button type="button" id="dismissPublishBtn" class="text-xs font-medium px-3 py-2 rounded-lg border" style="border-color: var(--beige-300); color: var(--beige-700);">Dismiss</button>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-6 pt-4 border-t text-[11px] text-center" style="border-color: var(--beige-150); color: var(--beige-400);">
-                * All input values are processed securely in real-time.
+                * Published voices remain on this page permanently and can only be removed via the site's GitHub source.
             </div>
         </section>
 
         <!-- COLUMN 2: Live Conversation Feed -->
-        <section id="forumSection" class="rounded-2xl shadow-sm border p-6 flex flex-col h-[780px] lg:h-auto transition-all duration-300" style="background: var(--cream); border-color: var(--beige-200);">
+        <section id="forumSection" class="rounded-2xl shadow-sm border p-6 flex flex-col h-[780px] lg:h-auto transition-all duration-300">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-3">
-                    <div class="p-2 rounded-lg" style="background: var(--beige-100); color: var(--beige-700);">
+                    <div class="p-2 rounded-lg" style="background: rgba(255,255,255,0.7); color: var(--beige-700);">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379L12 21l3.62-2.63c1.153-.086 2.294-.213 3.423-.379 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                         </svg>
                     </div>
-                    <h2 class="text-xl font-bold" style="color: var(--beige-900);">Live Forum</h2>
+                    <h2 class="text-xl font-bold">Live Forum</h2>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div id="liveIndicator" class="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full animate-pulse" style="color: var(--beige-700); background: var(--beige-100);">
-                        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--beige-600);"></span> Live Feed
+                    <div id="liveIndicator" class="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full animate-pulse" style="background: rgba(255,255,255,0.7);">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--beige-600);"></span> Climate Talks
                     </div>
                     <button id="expandForumBtn" onclick="toggleForumExpand()" type="button"
                         class="p-1.5 rounded-full border transition-colors" title="Expand for a spacious view"
-                        style="border-color: var(--beige-300); color: var(--beige-700); background: var(--beige-50);">
+                        style="border-color: var(--sky-200); color: var(--beige-700); background: rgba(255,255,255,0.7);">
                         <svg id="expandIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 20.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
                         </svg>
@@ -199,25 +299,25 @@
             </div>
 
             <!-- Filter + Count Row -->
-            <div class="flex items-center justify-between mb-3 gap-2">
-                <span id="forumCount" class="text-[11px]" style="color: var(--beige-500);">Loading voices…</span>
-                <select id="sortSelect" class="text-xs rounded-lg border px-2 py-1.5 focus:outline-none" style="border-color: var(--beige-200); background: var(--beige-50); color: var(--ink);">
+            <div class="flex items-center justify-between mb-4 gap-2">
+                <span id="forumCount" class="text-[11px]">Loading voices…</span>
+                <select id="sortSelect" class="text-xs rounded-lg border px-2 py-1.5 focus:outline-none" style="border-color: var(--sky-200); background: rgba(255,255,255,0.8); color: var(--ink);">
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>
                 </select>
             </div>
 
             <!-- Dynamic Conversation Content Box -->
-            <div id="conversationFeed" class="flex-1 overflow-y-auto pr-1 space-y-4 custom-scrollbar">
-                <div id="emptyState" class="text-center py-12 text-sm italic" style="color: var(--beige-400);">
-                    No active user broadcasts yet. Submit the form on the left to pin your thought here!
+            <div id="conversationFeed" class="flex-1 overflow-y-auto pr-1 space-y-6 custom-scrollbar">
+                <div id="emptyState" class="text-center py-16 text-sm italic" style="color: var(--beige-400);">
+                    The sky is quiet for now. Submit the form to be the first voice pinned here!
                 </div>
             </div>
 
             <!-- View All -->
-            <div class="pt-3 mt-3 border-t" style="border-color: var(--beige-150);">
+            <div class="pt-4 mt-3 border-t" style="border-color: var(--beige-150);">
                 <button id="viewAllBtn" onclick="openModal()" class="hidden w-full text-sm font-medium py-2.5 rounded-xl border transition-colors"
-                    style="border-color: var(--beige-300); color: var(--beige-700); background: var(--beige-50);">
+                    style="border-color: var(--sky-200); color: var(--beige-700); background: rgba(255,255,255,0.8);">
                     View All Voices
                 </button>
             </div>
@@ -331,7 +431,7 @@
                     <button onclick="closeModal()" class="text-sm px-3 py-1.5 rounded-lg border" style="border-color: var(--beige-200); color: var(--beige-700);">Close</button>
                 </div>
             </div>
-            <div id="modalFeed" class="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar"></div>
+            <div id="modalFeed" class="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar"></div>
         </div>
     </div>
 
@@ -342,6 +442,42 @@
 
     <!-- Interactive JavaScript Engine -->
     <script>
+        /* =========================================================================
+           PERMANENT FORUM ENTRIES
+           -------------------------------------------------------------------------
+           This page is a static site, so "publishing" a voice for every visitor
+           means adding it to this array directly, then pushing the change via
+           GitHub. There is deliberately NO delete button anywhere in the UI —
+           once a voice is added below, it stays on the site forever. The ONLY
+           way to take a voice down is to remove its object from this array here
+           in the source and republish.
+
+           To add a new voice: paste the object generated by the "Copy Snippet"
+           button (shown after someone submits the form) as a new entry in this
+           array, then commit the change on GitHub.
+
+           Entry shape:
+           {
+               id: "unique-id",
+               name: "Full Name",
+               profession: "Profession",
+               thought: "Their shared thought",
+               photo: null,              // or a data:image/... URL
+               timestamp: "ISO-8601 date string"
+           }
+        ========================================================================= */
+        const livePosts = [
+            // Example (remove or replace with real submissions):
+            // {
+            //     id: "example-1",
+            //     name: "Himanshi Shrimali",
+            //     profession: "Founder, Climate Casa",
+            //     thought: "One change that could make flying kinder to the planet is choosing direct routes whenever possible.",
+            //     photo: null,
+            //     timestamp: "2026-07-01T09:00:00.000Z"
+            // }
+        ];
+
         // DOM Elements
         const form = document.getElementById('thoughtForm');
         const feedContainer = document.getElementById('conversationFeed');
@@ -358,12 +494,14 @@
         const photoLabelText = document.getElementById('photoLabelText');
         const removePhotoBtn = document.getElementById('removePhotoBtn');
         const submitBtn = document.getElementById('submitBtn');
+        const publishPanel = document.getElementById('publishPanel');
+        const publishSnippet = document.getElementById('publishSnippet');
+        const copySnippetBtn = document.getElementById('copySnippetBtn');
+        const dismissPublishBtn = document.getElementById('dismissPublishBtn');
 
-        const STORAGE_KEY = 'forum-posts';
         const COMPACT_LIMIT = 6;
-        let livePosts = [];       // persisted, shared across all users
+        let sessionPosts = [];    // this browser's own submissions, shown as a local preview only
         let selectedPhotoDataUrl = null;
-        let storageReady = false;
         let isForumExpanded = false;
 
         const forumSection = document.getElementById('forumSection');
@@ -399,49 +537,31 @@
 
         window.addEventListener('DOMContentLoaded', init);
 
-        async function init() {
-            await loadPosts();
+        function init() {
             renderFeed();
             sortSelect.addEventListener('change', () => { modalSortSelect.value = sortSelect.value; renderFeed(); });
             modalSortSelect.addEventListener('change', () => { sortSelect.value = modalSortSelect.value; renderFeed(); });
         }
 
-        async function loadPosts() {
-            try {
-                const result = await window.storage.get(STORAGE_KEY, true);
-                livePosts = result && result.value ? JSON.parse(result.value) : [];
-            } catch (err) {
-                // Key not found yet, or storage unavailable — start fresh.
-                livePosts = [];
-            }
-            storageReady = true;
-        }
-
-        async function savePosts() {
-            try {
-                await window.storage.set(STORAGE_KEY, JSON.stringify(livePosts), true);
-            } catch (err) {
-                console.error('Could not save your post to the shared forum:', err);
-            }
+        function allPosts() {
+            // Permanent, published voices first, then this browser's own unpublished preview(s).
+            return [...livePosts, ...sessionPosts];
         }
 
         function getSortedPosts() {
             const order = sortSelect.value || 'newest';
-            const source = livePosts.length ? livePosts : standardSeedCards;
-            const sorted = [...source].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            const sorted = [...allPosts()].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
             return order === 'newest' ? sorted.reverse() : sorted;
         }
 
         function renderFeed() {
             const sorted = getSortedPosts();
-            const usingSeed = livePosts.length === 0;
+            const total = sorted.length;
 
-            // Count label
-            forumCount.textContent = usingSeed
-                ? 'Climate Casa Air'
-                : `${livePosts.length} voice${livePosts.length === 1 ? '' : 's'} shared`;
+            forumCount.textContent = total === 0
+                ? 'Have a wonderful day :)'
+                : `${total} voice${total === 1 ? '' : 's'} shared`;
 
-            // Compact feed (spacious full list when the panel is expanded)
             feedContainer.innerHTML = '';
             if (sorted.length === 0) {
                 feedContainer.appendChild(emptyState);
@@ -452,14 +572,12 @@
                 visible.forEach(post => feedContainer.appendChild(buildCard(post)));
             }
 
-            // View All button — only relevant in the compact view
-            if (!isForumExpanded && !usingSeed && livePosts.length > COMPACT_LIMIT) {
+            if (!isForumExpanded && total > COMPACT_LIMIT) {
                 viewAllBtn.classList.remove('hidden');
             } else {
                 viewAllBtn.classList.add('hidden');
             }
 
-            // Modal (if open, keep it live-updated)
             if (!document.getElementById('modalOverlay').classList.contains('hidden')) {
                 renderModal();
             }
@@ -488,7 +606,7 @@
             textarea.focus();
         }
 
-        // Photo selection + client-side resize so shared storage stays light
+        // Photo selection + client-side resize so any pasted snippet stays light
         photoInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -543,7 +661,7 @@
         }
 
         // Intercept form dispatch
-        form.addEventListener('submit', async function(event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
 
             const nameVal = document.getElementById('fullName').value.trim();
@@ -564,9 +682,12 @@
                 timestamp: new Date().toISOString()
             };
 
-            livePosts.push(newPost);
-            await savePosts();
+            // Local-only preview: this page has no server, so a submission is not
+            // automatically visible to other visitors. It must be added to the
+            // livePosts array above (via GitHub) to become permanent and public.
+            sessionPosts.push(newPost);
             renderFeed();
+            showPublishPanel(newPost);
 
             form.reset();
             selectedPhotoDataUrl = null;
@@ -579,6 +700,39 @@
             submitBtn.innerHTML = 'Broadcast to Forum <kbd class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded border" style="background: var(--beige-700); border-color: var(--beige-500);">Enter</kbd>';
         });
 
+        function showPublishPanel(post) {
+            const snippetObj = {
+                id: post.id,
+                name: post.name,
+                profession: post.profession,
+                thought: post.thought,
+                photo: post.photo,
+                timestamp: post.timestamp
+            };
+            publishSnippet.textContent = JSON.stringify(snippetObj, null, 4) + ',';
+            publishPanel.classList.remove('hidden');
+            publishPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        copySnippetBtn.addEventListener('click', async () => {
+            const text = publishSnippet.textContent;
+            try {
+                await navigator.clipboard.writeText(text);
+                copySnippetBtn.textContent = 'Copied ✓';
+            } catch (err) {
+                const range = document.createRange();
+                range.selectNode(publishSnippet);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                copySnippetBtn.textContent = 'Select & copy manually';
+            }
+            setTimeout(() => { copySnippetBtn.textContent = 'Copy Snippet'; }, 2000);
+        });
+
+        dismissPublishBtn.addEventListener('click', () => {
+            publishPanel.classList.add('hidden');
+        });
+
         function formatTimestamp(iso) {
             return new Date(iso).toLocaleString('en-US', {
                 year: 'numeric', month: '2-digit', day: '2-digit',
@@ -588,32 +742,29 @@
 
         function buildCard(post) {
             const card = document.createElement('div');
-            card.className = "card-enter p-5 rounded-xl border shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[140px]";
-            card.style.background = 'linear-gradient(160deg, var(--beige-50), var(--cream))';
-            card.style.borderColor = 'var(--beige-200)';
+            card.className = "forum-card card-enter";
 
             const initials = escapeHTML(post.name || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
 
             const avatarHTML = post.photo
-                ? `<img src="${post.photo}" alt="${escapeHTML(post.name)}" class="w-10 h-10 rounded-full object-cover border" style="border-color: var(--beige-200);">`
-                : `<div class="w-10 h-10 rounded-full avatar-fallback text-xs">${initials}</div>`;
+                ? `<img src="${post.photo}" alt="${escapeHTML(post.name)}" class="w-12 h-12 rounded-full object-cover border" style="border-color: var(--sky-200);">`
+                : `<div class="w-12 h-12 rounded-full avatar-fallback text-sm">${initials}</div>`;
 
             card.innerHTML = `
-                <div>
-                    <div class="flex items-start justify-between gap-4 mb-2">
-                        <div class="flex items-center gap-3">
-                            ${avatarHTML}
-                            <div>
-                                <h4 class="font-bold text-sm tracking-tight" style="color: var(--beige-900);">${escapeHTML(post.name)}</h4>
-                                <p class="text-[11px] font-medium tracking-wide" style="color: var(--beige-600);">${escapeHTML(post.profession)}</p>
-                            </div>
-                        </div>
-                        <span class="text-[10px] font-mono shrink-0 px-2 py-0.5 rounded" style="color: var(--beige-500); background: var(--beige-100);">${formatTimestamp(post.timestamp)}</span>
+                <div class="flex items-center gap-3">
+                    ${avatarHTML}
+                    <div class="min-w-0 flex-1">
+                        <h4 class="font-bold text-sm tracking-tight truncate" style="color: var(--beige-900);">${escapeHTML(post.name)}</h4>
+                        <p class="text-[11px] font-medium tracking-wide truncate" style="color: var(--beige-600);">${escapeHTML(post.profession)}</p>
                     </div>
-                    <p class="text-xs leading-relaxed italic mt-1 p-2.5 rounded-lg border" style="color: var(--ink); background: rgba(255,255,255,0.6); border-color: var(--beige-150);">
-                        "${escapeHTML(post.thought)}"
-                    </p>
                 </div>
+                <div class="forum-card-meta">
+                    <span class="forum-card-meta-label">Shared a thought</span>
+                    <span class="forum-card-date">${formatTimestamp(post.timestamp)}</span>
+                </div>
+                <p class="text-xs leading-relaxed italic" style="color: var(--ink);">
+                    "${escapeHTML(post.thought)}"
+                </p>
             `;
             return card;
         }
